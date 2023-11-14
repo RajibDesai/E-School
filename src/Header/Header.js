@@ -30,7 +30,7 @@ const Header = () => {
                                     <h6>FAQ</h6>
                                 </Nav.Link>
                                 <Nav.Link><h6>Blog</h6></Nav.Link>
-                                <Nav.Link>
+                                <Nav.Link as={Link} >
                                     <h6>Theme</h6>
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/login" >
