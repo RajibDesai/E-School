@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Login.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 import { ButtonGroup } from 'react-bootstrap';
 import { FaGoogle,FaGithub } from "react-icons/fa6";
+import { AuthContext } from '../context/AuthContext/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
+  const {googleProviderLogin} = useContext(AuthContext);
+  const googleProvider = new GoogleAuthProvider()
+
+  const handleGoogleSignin = () => {
+          googleProviderLogin(googleProvider)
+          .then( result => {
+            const user = result.user;
+            console.log(user)
+          })
+          .catch(error => console.error(error))
+  }
+
   return (
 
     <Form className='login'>
@@ -26,7 +40,7 @@ const Login = () => {
       </Form.Text>
       <p>don't have an account <Link to='/register'>please register here</Link></p>
       <ButtonGroup vertical>
-      <Button variant="outline-primary"><FaGoogle></FaGoogle> Login with Google</Button>
+      <Button onClick={handleGoogleSignin}  variant="outline-primary"><FaGoogle></FaGoogle> Login with Google</Button>
       <Button variant="outline-dark"><FaGithub></FaGithub> Login with Github</Button>
       </ButtonGroup>
     </Form>
